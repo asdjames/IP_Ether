@@ -37,6 +37,23 @@ void test_ht_dtor(){
 */
 }
 
+void test_convert_mac_to_ip(){
+    printf("test_convert_mac_to_ip(): \n");
+	int32_t result;
+	result = convert_mac_to_ip(0x0000000000000001);
+	assert(result==0x00000001);
+    result = convert_mac_to_ip(0x0000000000000002);
+    assert(result==0x00000002);
+    result = convert_mac_to_ip(0x0000000000000003);
+    assert(result==0x00000003);
+    result = convert_mac_to_ip(0x0000000000000004);
+    assert(result==0x00000004);
+
+    result = convert_mac_to_ip(0x0000FFFF00000004);
+    assert(result==0x00000004);
+}
+
+
 void test_ht_insert(){
 	
 }
@@ -52,6 +69,7 @@ void test_ht_delete(){
 int main(){
 	test_ht_ctor();
     test_ht_dtor();
+	test_convert_mac_to_ip();
 	printf("end of main()! \n");	
 	return 0;
 }

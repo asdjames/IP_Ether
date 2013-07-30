@@ -46,15 +46,15 @@ int ht_hash_mac(int mac){
 
 }
 
-
-int8_t get_last_32_bit(int32_t in){
-	int32_t result=0x00;
-	int32_t last_four_bit=0x0F;
-	result = in | last_four_bit;/*getting the last 4 bits*/
-	return result;
+int32_t get_last_32_bit(int64_t in){
+    int32_t result=0x00000000;
+    int32_t last_32_bit=0xFFFFFFFF;
+    result = in & last_32_bit;/*getting the last 4 bits*/
+    return result;
 }
 
-int32_t convert_mac_to_ip(int32_t mac){
+/*TODO create a user int48_t */
+int32_t convert_mac_to_ip(int64_t mac){
 	int32_t result=get_last_32_bit(mac);
 	return result;
 }

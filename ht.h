@@ -1,6 +1,8 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <stdint.h>
+
 typedef struct bucket{
 	int data;
 	struct bucket* next;
@@ -21,6 +23,8 @@ typedef struct ht{
 ht_t* ht_ctor(int capacity);
 
 void ht_dtor(ht_t* ht);
+
+int32_t convert_mac_to_ip(int64_t mac);
 
 /*TODO for now, only store IP address, and use MAC to look up and search*/
 /*return type is for error report*/
