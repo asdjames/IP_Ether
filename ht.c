@@ -37,8 +37,18 @@ void ht_dtor(ht_t* ht){
 	free(ht);
 }
 
-int ht_hash_mac(int mac){
+/* hashing seudo ip
+TODO current version is static hashtable, one-to-one mapping, and no hash collision
+*/
 
+/*
+TODO plan of implementation:
+1. dynamic ht: assume uniform distribution: simple mod by capacity
+2. dynamic ht: assume lower bits are more used: based on capcity, use the number lower bits starting from the lowest bits
+3. dynamic ht/static ht: assume lower bits are more used: use one-to-one mapping. if static, the size has to be 2^32. if dynamic, will increase the ht when needed.
+*/
+int ht_hash(int in){
+	return in;
 }
 
 int32_t get_last_32_bit(int64_t in){
@@ -54,15 +64,34 @@ int32_t convert_mac_to_ip(int64_t mac){
 	return result;
 }
 
-/*TODO for now, use MAC as key, and store IP in the table*/
-/*return type is for error report*/
+/*for now, use IP as key, and store MAC in the table
+@return: error code
+0: normal
+*/
 int ht_insert(ht_t* ht, int IP, int MAC){
+	/*TODO for current version, IP is the index in hashtable*/
+	int index=ht_hash(IP);
+    bucket_t* tmp=ht->bucket;
+    tmp[index].data=MAC;
 	
+	return 0;
 }
 
-/*return type is for error report*/
+/*TODO need to decide if function will return the content OR just if the item is in ht*/
+    //TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
+/*@return: return content in the hashtable*/
 int ht_search(ht_t* ht, int key){
-	
+	int index=ht_hash(key);
+    bucket_t* tmp=ht->bucket;
+
+	//TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
+	/*TODO check syntax of tmp->next*/
+	if(tmp->next==NULL){
+		return tmp->data;
+	}
+	else{
+		printf("warning: there is hash collision for given key: %i \n", key);
+	}	
 }
 
 /*return type is for error report*/
