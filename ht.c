@@ -88,7 +88,7 @@ int ht_search(ht_t* ht, int IP){
 
 	//TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
 	/*TODO check syntax of tmp->next*/
-	if(tmp->next==NULL){
+	if(tmp[index].next==NULL){
 		int returnTmp;
     	bucket_t* tmp=ht->bucket;
     	int data=tmp[index].data;
