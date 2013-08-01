@@ -24,17 +24,16 @@ void test_ht_ctor(){
 
 //	assert(ht->bucket.data==1);//not helpful anymore
 //    free(ht->bucket);
-	free(ht);	
+    ht_dtor(ht);
 }
 
 void test_ht_dtor(){
-/*
     ht_t* ht=ht_ctor(20);
-    (&(ht->bucket[1]))->data=1;
 
-    assert((&(ht->bucket[1]))->data==1);//not helpful anymore
+	bucket_t* tmp=ht->bucket;
+    tmp[0].data=1;
+
 	ht_dtor(ht);
-*/
 }
 
 void test_convert_mac_to_ip(){
