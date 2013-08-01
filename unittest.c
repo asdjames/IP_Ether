@@ -79,11 +79,11 @@ void test_ht_insert(){
 		assert((ht->bucket[i]).data==i);
 	}
 
-
+/*
     for(i=0; i<20; i++){
         printf("i: %i, content: %i \n", i, (ht->bucket[i]).data );
     }
-
+*/
 
     ht_dtor(ht);
     printf("end of test_ht_insert() -----\n");
@@ -117,12 +117,12 @@ void test_ht_search(){
 		int a=ht_search(ht, i);
         assert(a==i);
     }
-
+/*
     for(i=0; i<20; i++){
         int a=ht_search(ht, i);
         printf("i: %i, ht_search(): %i \n", i, a);
     }
-
+*/
     ht_dtor(ht);
     printf("end of test_ht_search() -----\n");	
 }
@@ -150,8 +150,17 @@ void test_ht_delete(){
     ht_insert(ht, 18,18);
     ht_insert(ht, 19,19);
 
+
+
     int i;
+
     for(i=0; i<20; i++){
+        ht_delete(ht, i);
+    }
+
+    for(i=0; i<20; i++){
+		int a=ht_search(ht, i);
+		assert(a==-1);
     }
 
     ht_dtor(ht);
@@ -164,6 +173,7 @@ int main(){
 	test_convert_mac_to_ip();
 	test_ht_insert();
 	test_ht_search();
+	test_ht_delete();
 	printf("end of main()! \n");	
 	return 0;
 }
