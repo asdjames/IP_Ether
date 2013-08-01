@@ -3,12 +3,24 @@
 
 #include <stdint.h>
 
+/*this is a dynamic hashtable, that stores store mac address, 
+*and uses seudo ip address to look up the mac address.
+the seudo ip address is just last 32 bit of mac address
+If the size of capacity of hashtable is initialized to 2^32, 
+the hashtable would not need to be expanded. 
+The reason is that hash function in this case would be a perfect hash fucntion,
+because there would be a one-to-one mapping of seudo ip and mac address.
+*/
+
 typedef struct bucket{
 	int data;
 	struct bucket* next;
 }bucket_t;
 
 
+/*NOTE: if c
+
+*/
 typedef struct ht{
     int count; /*count the number of buckets being used; 
 	            TODO dont need this for static ht

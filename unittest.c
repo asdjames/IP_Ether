@@ -10,21 +10,18 @@ void test_ht_ctor(){
 	tmp[0].data=1;
     tmp[1].data=2;
 
-
-//	bucket_t* tmp=ht->bucket;
-//	tmp->data=1;
-
+	assert((ht->bucket)->data==1);
+	assert((ht->bucket[0]).data==1);
 	printf("ht->bucket->data: %i\n", (ht->bucket)->data);	
-//    printf("ht->bucket->data: %i\n", (ht->bucket[1])->data);
- 
+
+	assert((ht->bucket[1]).data==2); 
     printf("ht->bucket->data: %i\n", (ht->bucket[1]).data);
 
-
+	assert(ht->capacity==20);
     printf("ht->capacity: %i\n", ht->capacity);
 
-//	assert(ht->bucket.data==1);//not helpful anymore
-//    free(ht->bucket);
     ht_dtor(ht);
+	printf("end of test_ht_ctor() -----\n");
 }
 
 void test_ht_dtor(){
@@ -34,10 +31,10 @@ void test_ht_dtor(){
     tmp[0].data=1;
 
 	ht_dtor(ht);
+    printf("end of test_ht_dtor() -----\n");
 }
 
 void test_convert_mac_to_ip(){
-    printf("test_convert_mac_to_ip(): \n");
 	int32_t result;
 	result = convert_mac_to_ip(0x0000000000000001);
 	assert(result==0x00000001);
@@ -50,6 +47,7 @@ void test_convert_mac_to_ip(){
 
     result = convert_mac_to_ip(0x0000FFFF00000004);
     assert(result==0x00000004);
+    printf("end of test_convert_mac_to_ip() -----\n");
 }
 
 
