@@ -84,7 +84,36 @@ void test_ht_insert(){
 }
 
 void test_ht_search(){
-	
+    ht_t* ht=ht_ctor(20);
+    ht_insert(ht, 0, 0);
+    ht_insert(ht, 1, 1);
+    ht_insert(ht, 2, 2);
+    ht_insert(ht, 3, 3);
+    ht_insert(ht, 4, 4);
+    ht_insert(ht, 5, 5);
+    ht_insert(ht, 6, 6);
+    ht_insert(ht, 7, 7);
+    ht_insert(ht, 8, 8);
+    ht_insert(ht, 9, 9);
+    ht_insert(ht, 10,10);
+    ht_insert(ht, 11,11);
+    ht_insert(ht, 12,12);
+    ht_insert(ht, 13,13);
+    ht_insert(ht, 14,14);
+    ht_insert(ht, 15,15);
+    ht_insert(ht, 16,16);
+    ht_insert(ht, 17,17);
+    ht_insert(ht, 18,18);
+    ht_insert(ht, 19,19);
+
+    int i;
+    for(i=0; i<20; i++){
+		int a=ht_search(ht, i);
+        assert(a==i);
+    }
+
+    ht_dtor(ht);
+    printf("end of test_ht_search() -----\n");	
 }
 
 void test_ht_delete(){
@@ -96,6 +125,7 @@ int main(){
     test_ht_dtor();
 	test_convert_mac_to_ip();
 	test_ht_insert();
+	test_ht_search();
 	printf("end of main()! \n");	
 	return 0;
 }

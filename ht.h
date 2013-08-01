@@ -14,6 +14,7 @@ because there would be a one-to-one mapping of seudo ip and mac address.
 
 typedef struct bucket{
 	int data;
+	int key; /*ip would be the key here. -1 would be uninialized*/
 	struct bucket* next;
 }bucket_t;
 
@@ -50,6 +51,7 @@ int ht_insert(ht_t* ht, int IP, int MAC);
 int ht_search(ht_t* ht, int key);
 
 /*return type is for error report*/
-int ht_delete(ht_t* ht, int IP, int MAC);
+//int ht_delete(ht_t* ht, int IP, int MAC);
+int ht_delete(ht_t* ht, int IP);
 
 #endif

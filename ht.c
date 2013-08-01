@@ -14,6 +14,7 @@ ht_t* ht_ctor(int capacity){
 	for(i=0;i<capacity;i++){
         bucket_t* tmp=&(ht->bucket[i]);
 		tmp->next=NULL;
+		tmp->key=-1;
 	}
 	return ht;
 }
@@ -73,6 +74,7 @@ int ht_insert(ht_t* ht, int IP, int MAC){
 	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
     tmp[index].data=MAC;
+    tmp[index].key=IP;
 	
 	return 0;
 }
@@ -80,23 +82,38 @@ int ht_insert(ht_t* ht, int IP, int MAC){
 /*TODO need to decide if function will return the content OR just if the item is in ht*/
     //TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
 /*@return: return content in the hashtable*/
-int ht_search(ht_t* ht, int key){
-	int index=ht_hash(key);
+int ht_search(ht_t* ht, int IP){
+	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
 
 	//TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
 	/*TODO check syntax of tmp->next*/
 	if(tmp->next==NULL){
-		return tmp->data;
+		int returnTmp;
+    	bucket_t* tmp=ht->bucket;
+    	int data=tmp[index].data;
+        int key=tmp[index].key;
+
+		if(key==IP){
+			return data;
+		}
+		else{
+			printf("warning: ht_search: value not found\n");
+		}
 	}
 	else{
-		printf("warning: there is hash collision for given key: %i \n", key);
+		printf("warning:  ht_search: there is hash collision for given key: %i \n", IP);
 	}	
 }
 
 /*return type is for error report*/
-int ht_delete(ht_t* ht, int IP, int MAC){
+//int ht_delete(ht_t* ht, int IP, int MAC){
+int ht_delete(ht_t* ht, int IP){
+    int index=ht_hash(IP);
+    bucket_t* tmp=ht->bucket;
 	
+		
+
 }
 
 
