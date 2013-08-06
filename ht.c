@@ -73,9 +73,26 @@ int ht_insert(ht_t* ht, int IP, int MAC){
 	/*TODO for current version, IP is the index in hashtable*/
 	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
-    tmp[index].data=MAC;
-    tmp[index].key=IP;
-	
+	if(tmp[index].key==-1&&tmp->next==NULL){
+    	tmp[index].data=MAC;
+    	tmp[index].key=IP;
+	}
+	else{
+		tmp=&(tmp[index]);//TODO check might need the macro I used to get the specific area of a C struct
+		while(tmp->key!=-1&&tmp->next!=NULL){
+			if(tmp->key!=-1&&tmp->next==NULL){
+				tmp->next=malloc(sizeof(bucket_t));	
+				tmp=tmp->next;
+				/*update the values*/
+				tmp->data=MAC;
+        		tmp->key=IP;
+				tmp->next=NULL;
+				return 0;
+			}
+			tmp=tmp->next;
+		}
+	}
+
 	return 0;
 }
 
@@ -101,7 +118,7 @@ int ht_search(ht_t* ht, int IP){
 			return data;
 		}
 		else{
-			printf("warning: ht_search: value not found\n");
+			//printf("warning: ht_search: value not found\n");
 			return -1;
 		}
 	}
@@ -120,12 +137,13 @@ int ht_delete(ht_t* ht, int IP){
 	bucket_t* p=tmp[index].next;
     bucket_t* q=NULL;
 	while(p!=NULL){
-		p=q;
+		q=p;
 		p->key=-1;	
 		if(p->next!=NULL){
 			p=p->next;
 		}
 		else{
+			
 			//free(q);//TODO for hash collision version
 			break;
 		}
