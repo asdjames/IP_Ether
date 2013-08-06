@@ -78,7 +78,7 @@ int ht_insert(ht_t* ht, int IP, int MAC){
     	tmp[index].key=IP;
 	}
 	else{
-		tmp=&(tmp[index]);//TODO check might need the macro I used to get the specific area of a C struct
+		tmp=&(tmp[index]);//TODO this syntax might be wrong. might need the macro I used to get the specific area of a C struct
 		while(tmp->key!=-1&&tmp->next!=NULL){
 			if(tmp->key!=-1&&tmp->next==NULL){
 				tmp->next=malloc(sizeof(bucket_t));	
@@ -106,8 +106,6 @@ int ht_search(ht_t* ht, int IP){
 	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
 
-	//TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
-	/*TODO check syntax of tmp->next*/
 	if(tmp[index].next==NULL){
 		int returnTmp;
     	bucket_t* tmp=ht->bucket;
@@ -133,21 +131,13 @@ int ht_delete(ht_t* ht, int IP){
     int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
 	
-	tmp[index].key=-1;
 	bucket_t* p=tmp[index].next;
-    bucket_t* q=NULL;
+    bucket_t* q=&(tmp[index]);//TODO check this syntax if there is a bug
+
+
 	while(p!=NULL){
-		q=p;
-		p->key=-1;	
-		if(p->next!=NULL){
-			p=p->next;
-		}
-		else{
-			
-			//free(q);//TODO for hash collision version
-			break;
-		}
-		//free(q);//TODO for hash collision version
+
+
 	}		
 
 }
