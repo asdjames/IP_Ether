@@ -125,21 +125,57 @@ int ht_search(ht_t* ht, int IP){
 	}	
 }
 
-/*return type is for error report*/
+/*return type is for error and function condition report
+  	@return 0: normal exit
+	return -1: trying to delete a data not in the list for index (computed by hash function)
+	return 2: only one element at given index, 
+				but this is not the key that the program wants to delete
+	return 3: reached the end of list, given key still not found
+	return 4: reached end of function, which SHOULD NEVER HAPPEN
+*/
 //int ht_delete(ht_t* ht, int IP, int MAC){
-int ht_delete(ht_t* ht, int IP){
-    int index=ht_hash(IP);
+int ht_delete(ht_t* ht, int key){
+    int index=ht_hash(key);
     bucket_t* tmp=ht->bucket;
 	
-	bucket_t* p=tmp[index].next;
+	bucket_t* p=&(tmp[index]);//TODO check this syntax if there is a bug
     bucket_t* q=&(tmp[index]);//TODO check this syntax if there is a bug
 
+	if(tmp[index].key==-1){
+		printf("ERROR: ht_delete(): trying to delete a data not in the list for index (computed by hash function) \n");
+		return -1;
+	}
 
-	while(p!=NULL){
-
-
-	}		
-
+	if(p->key!=-1&&p->next==NULL){/*this is very first element in the list for given index, dont need to free, because dtor will take care of this.*/
+		if(p->key==key){
+			p->key=-1;
+			return 0;
+		}
+		else{
+			return 2;
+		}
+	}
+	else{
+		p=p->next;
+		while(p!=NULL){
+			if(p->key==key){
+				if(p->next==NULL){/*matching element being end of the list*/
+					q->next=NULL;
+					free(p);
+					return 0;
+				}
+				else{
+					q->next=p->next;
+					free(p);
+					return 0;
+				}
+			}
+			q=p;
+			p=p->next;
+		}
+		return 3;
+	}
+	return 4;
 }
 
 
