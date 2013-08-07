@@ -99,15 +99,15 @@ int ht_insert(ht_t* ht, int IP, int MAC){
 /*TODO need to decide if function will return the content OR just if the item is in ht*/
     //TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
 /*@return: return content in the hashtable
-	return -1 if item not in hashtable
+	return -1 if item not in backet
+	return 2 if item not in the list
 */
 
 int ht_search(ht_t* ht, int IP){
 	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;
-
+//TODO need to check error cases as in delete()
 	if(tmp[index].next==NULL){
-		int returnTmp;
     	bucket_t* tmp=ht->bucket;
     	int data=tmp[index].data;
         int key=tmp[index].key;
@@ -120,8 +120,16 @@ int ht_search(ht_t* ht, int IP){
 			return -1;
 		}
 	}
-	else{
-		printf("warning:  ht_search: there is hash collision for given key: %i \n", IP);
+	else{/*case for hash collision*/
+		bucket_t* p=&(tmp[index]);	
+		p=p->next;
+		while(p!=NULL){
+			if(p->key==IP){
+				return p->data;
+			}
+			p=p->next;
+		}
+		return 2;
 	}	
 }
 
