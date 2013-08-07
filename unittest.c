@@ -160,7 +160,7 @@ void test_ht_delete(){
 
     for(i=0; i<20; i++){
 		int a=ht_search(ht, i);
-		assert(a==i);
+		assert(a==-1);
     }
 
     ht_dtor(ht);
