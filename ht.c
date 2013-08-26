@@ -59,7 +59,9 @@ int32_t get_last_32_bit(int64_t in){
     return result;
 }
 
-/*TODO create a user int48_t */
+/*function to convert from real mac to pseudo ip address
+
+*/
 int32_t convert_mac_to_ip(int64_t mac){
 	int32_t result=get_last_32_bit(mac);
 	return result;
@@ -96,13 +98,10 @@ int ht_insert(ht_t* ht, int IP, int MAC){
 	return 0;
 }
 
-/*TODO need to decide if function will return the content OR just if the item is in ht*/
-    //TODO actually, if hash collision happens, there would be a list of results, and I cannot tell which one is correct 
 /*@return: return content in the hashtable
 	return -1 if item not in backet
 	return 2 if item not in the list
 */
-
 int ht_search(ht_t* ht, int IP){
 	int index=ht_hash(IP);
     bucket_t* tmp=ht->bucket;

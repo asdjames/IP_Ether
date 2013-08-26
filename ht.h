@@ -43,7 +43,6 @@ int ht_insert(ht_t* ht, int key, int MAC);
 int ht_search(ht_t* ht, int key);
 
 /*return type is for error report*/
-//int ht_delete(ht_t* ht, int IP, int MAC);
 int ht_delete(ht_t* ht, int key);
 
 #endif
